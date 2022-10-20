@@ -4,9 +4,11 @@ import 'package:getx_1/models/product.dart';
 
 class HomeController extends GetxController {
   var products = <Product>[].obs;
+  var currentindex = 0.obs;
 
   void onInit() {
-    fetchProduct();
+    // fetchProduct();
+    // currentindex.refresh();
     super.onInit();
   }
 
@@ -14,9 +16,15 @@ class HomeController extends GetxController {
     await Future.delayed(Duration(seconds: 2));
     var productResult = [
       Product(id: 1, PName: 'pen', PImage: 'PImage', PDes: 'PDes', Price: 10),
-      Product(id: 2, PName: 'pencul', PImage: 'PImage', PDes: 'PDes', Price: 1067),
-      Product(id: 3, PName: 'penaa', PImage: 'PImage', PDes: 'PDes', Price: 1066),
+      Product(
+          id: 2, PName: 'pencul', PImage: 'PImage', PDes: 'PDes', Price: 1067),
+      Product(
+          id: 3, PName: 'penaa', PImage: 'PImage', PDes: 'PDes', Price: 1066),
     ];
     products.assignAll(productResult);
+  }
+
+  changeIndex(int index) {
+    currentindex.value = index;
   }
 }

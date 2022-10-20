@@ -173,11 +173,11 @@ class TopicController {
         try {
             //category = {_id, name, slug}
             const { category, topicSubject, topicDetail, topicBy, tags } = req.body;
-            // console.log(category);
-            // console.log(topicSubject);
-            // console.log(topicDetail);
-            // console.log(topicBy);
-            // console.log(tags);
+            console.log(category);
+            console.log(topicSubject);
+            console.log(topicDetail);
+            console.log(topicBy);
+            console.log(tags);
             
             const userPost = await User.find({ _id: topicBy }).select('_id postName.name')
             // console.log('ss ddd'.replaceAll(" ", "-"));

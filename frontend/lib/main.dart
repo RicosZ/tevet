@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:getx_1/util/palette.dart';
 import 'package:getx_1/views/add_topic.view.dart';
 import 'package:getx_1/views/category.view.dart';
 import 'package:getx_1/views/fetch_topic.view.dart';
+import 'package:getx_1/views/home.view.dart';
 import 'package:getx_1/views/login.view.dart';
 import 'package:getx_1/views/topic.view.dart';
 
@@ -16,10 +18,12 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'GetX',
-      theme: ThemeData(
-        primarySwatch: Colors.blueGrey,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
+      
+      // theme: ThemeData(
+      //   primarySwatch: Palette.kToWhite,
+      //   // shadowColor: 
+      //   // visualDensity: VisualDensity.adaptivePlatformDensity,
+      // ),
       home: LoginView(),
       getPages: [
         GetPage(name: '/login', page: () => LoginView()),

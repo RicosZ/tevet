@@ -29,7 +29,10 @@ class addTopicView extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: Align(
                   alignment: Alignment.topLeft,
-                  child: Text('Topic',style: TextStyle(fontSize: 32),),
+                  child: Text(
+                    'Topic',
+                    style: TextStyle(fontSize: 32),
+                  ),
                 ),
               ),
               // Obx(
@@ -122,8 +125,28 @@ class addTopicView extends StatelessWidget {
                 ),
               ),
 
-              FormBuilderTextField(name: 'topicSubject'),
-              FormBuilderTextField(name: 'topicDetail'),
+              FormBuilderTextField(
+                name: 'topicSubject',
+                validator: (TopicSubject) {
+                  if (TopicSubject!.isEmpty) {
+                    return 'Subject can not be null.';
+                  }
+                },
+                onSaved: (TopicSubject) {
+                  addtopicController.topicSubject = TopicSubject;
+                },
+              ),
+              FormBuilderTextField(
+                name: 'topicDetail',
+                validator: (TopicDetail) {
+                  if (TopicDetail!.isEmpty) {
+                    return 'Detail can not be null.';
+                  }
+                },
+                onSaved: (TopicDetail) {
+                  addtopicController.topicDetail = TopicDetail;
+                },
+              ),
               ElevatedButton(
                   onPressed: () async {
                     // addtopicController.selectCategory.forEach((element) {
@@ -133,21 +156,25 @@ class addTopicView extends StatelessWidget {
                     //   //           ' ' +
                     //   //           element.catName;
                     // });
-                    _formKey.currentState!.save();
-                    final topicSubject =
-                        _formKey.currentState?.fields['topicSubject']!.value;
-                    final topicDetail =
-                        _formKey.currentState?.fields['topicDetail']!.value;
-                    // print(topicSubject);
-                    // print(topicDetail);
-                    // await
-                    print(addtopicController.selectCategory!);
-                    TopicApi().createTopic(
-                        category: addtopicController.selectCategory!,
-                        topicSubject: topicSubject,
-                        topicDetail: topicDetail,
-                        topicBy: '62d8ffee5edc5531fa46a06a',
-                        tags: addtopicController.selectTag);
+                    if (_formKey.currentState!.validate()) {
+                      _formKey.currentState!.save();
+                      addtopicController.createTopic();
+                    }
+
+                    // final topicSubject =
+                    //     _formKey.currentState?.fields['topicSubject']!.value;
+                    // final topicDetail =
+                    //     _formKey.currentState?.fields['topicDetail']!.value;
+                    // // print(topicSubject);
+                    // // print(topicDetail);
+                    // // await
+                    // print(addtopicController.selectCategory!);
+                    // TopicApi().createTopic(
+                    //     category: addtopicController.selectCategory!,
+                    //     topicSubject: topicSubject,
+                    //     topicDetail: topicDetail,
+                    //     topicBy: '62d8ffee5edc5531fa46a06a',
+                    //     tags: addtopicController.selectTag);
                     // Get.toNamed("/category");
                   },
                   child: Text('Post'))

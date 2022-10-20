@@ -1,7 +1,6 @@
 // import 'dart:convert';
 
 // import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 // import 'package:get/state_manager.dart';
 import 'package:getx_1/api/auth.api.dart';
@@ -10,7 +9,8 @@ import 'package:getx_1/services/cache.services.dart';
 final CacheService cacheService = new CacheService();
 
 class AuthController extends GetxController {
-  var isDataLoading = true.obs;
+  // var isDataLoading = true.obs;
+  String? email, password;
 
   @override
   Future<void> onInit() async {
@@ -25,9 +25,9 @@ class AuthController extends GetxController {
   @override
   void onClose() {}
 
-  Login({required BuildContext context, required String email, required String password}) async {
+  Login() async {
     try {
-      final response = await AuthApi().login(email: email, password: password);
+      final response = await AuthApi().login(email: email!, password: password!);
       final Map<String, dynamic> parsedValue = response;
       final accessToken = parsedValue['accessToken'];
       final refreshToken = parsedValue['refreshToken'];
@@ -43,8 +43,8 @@ class AuthController extends GetxController {
         // Get.toNamed('/test');
       }
     } catch (e) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('Somthing went wrong')));
+      // ScaffoldMessenger.of(context)
+      //     .showSnackBar(SnackBar(content: Text('Somthing went wrong')));
       print(e);
     }
   }
@@ -63,7 +63,7 @@ class AuthController extends GetxController {
   //       // sharedPreferences.setString('jwt', accessToken);
   //     }
   //   } catch (e) {
-      
+
   //   }
   // }
 }

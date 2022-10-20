@@ -10,7 +10,7 @@ class AuthInterceptor extends Interceptor {
       RequestOptions options, RequestInterceptorHandler handler) async {
     final listOfPaths = <String>[
       '/auth/login',
-      '/forum/topics/',
+      '/forum/topic/',
       '/forum/categories/list/name',
       '/forum/tags/'
     ];

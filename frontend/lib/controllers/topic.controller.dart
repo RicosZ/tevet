@@ -10,7 +10,7 @@ import 'package:getx_1/models/topic.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class TopicController extends GetxController {
-  String slugid;
+  String? slugid, commentData;
   BuildContext context;
   // String topicId;
   TopicController({required this.slugid, required this.context});
@@ -27,7 +27,7 @@ class TopicController extends GetxController {
 
   @override
   Future<void> onInit() async {
-    getTopic(slugid: slugid);
+    getTopic(slugid: slugid!);
     socket = IO.io(
         'http://192.168.1.141:5000',
         IO.OptionBuilder()
@@ -80,16 +80,12 @@ class TopicController extends GetxController {
     }
   }
 
-  addComment({
-    required String topicId,
-    required String comment,
-    required String slugId,
-  }) async {
+  addComment() async {
     try {
-      final res =
-          await CommentApi().createComment(topicId: topicId, comment: comment);
+      final res = await CommentApi()
+          .createComment(topicId: topic.first.id, comment: commentData!);
       print(res);
-      socket.emit('message', slugId);
+      socket.emit('message', slugid);
     } catch (e) {}
   }
 

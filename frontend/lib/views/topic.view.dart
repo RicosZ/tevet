@@ -9,8 +9,8 @@ class TopicView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-  final topicController =
-      Get.put(TopicController(slugid: '${Get.parameters['slugid']}',context: context));
+    final topicController = Get.put(TopicController(
+        slugid: '${Get.parameters['slugid']}', context: context));
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -64,11 +64,19 @@ class TopicView extends StatelessWidget {
                                       ),
                                       Row(children: [
                                         Icon(Icons.people),
-                                        Text(topicController.topic.first.postName.name),
-                                        SizedBox(width: 15,),
+                                        Text(topicController
+                                            .topic.first.postName.name),
+                                        SizedBox(
+                                          width: 15,
+                                        ),
                                         Icon(Icons.lock_clock_outlined),
-                                        Text(topicController.topic.first.createdAt.toLocal().toString()),
-                                        SizedBox(width: 15,),
+                                        Text(topicController
+                                            .topic.first.createdAt
+                                            .toLocal()
+                                            .toString()),
+                                        SizedBox(
+                                          width: 15,
+                                        ),
                                         Icon(Icons.remove_red_eye_outlined),
                                         Text(topicController
                                             .topic.first.countViews
@@ -155,18 +163,28 @@ Future openDialog(BuildContext context, TopicController topicController) =>
             key: _formKey,
             child: FormBuilderTextField(
               name: 'comment',
+              validator: (comment) {
+                if (comment!.isEmpty) {
+                  return 'Comment can not be null';
+                }
+              },
+              onSaved: (comment) => topicController.commentData = comment,
             )),
         actions: [
           TextButton(
             onPressed: () async {
-              final comment = _formKey.currentState!.fields['comment']!.value;
+              // final comment = _formKey.currentState!.fields['comment']!.value;
               // print(comment);
-              var topicId = topicController.topic.first.id;
-              await topicController.addComment(topicId: topicId, comment: comment,slugId: '${Get.parameters['slugid']}');
-              topicController.getTopic(slugid: '${Get.parameters['slugid']}');
-              Get.back(closeOverlays: true);
+              // var topicId = topicController.topic.first.id;
+              // await topicController.addComment(topicId: topicId, comment: comment,slugId: '${Get.parameters['slugid']}');
+              if (_formKey.currentState!.validate()) {
+                _formKey.currentState!.save();
+                topicController.addComment();
+                topicController.getTopic(slugid: '${Get.parameters['slugid']}');
+                Get.back(closeOverlays: true);
+              }
               // topicController.getComment(topicId: topicId);
-              // Get.toNamed('/topic/${topicId}');
+              // Get.toNamed('/topic/${topicId}');hell้ำ้ำ้
               // TopicController(slugid: topicId).update();
             },
             child: Text('SUBMIT'),
