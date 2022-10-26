@@ -494,9 +494,9 @@ const renewAuthToken = async (user, req, res) => {
         const accessToken = await user.createAccessToken();
         const refreshToken = await user.createRefreshToken();
         // filter current refresh token out of database
-        const newRefreshTokenArray = !req.cookies?.refreshToken
+        const newRefreshTokenArray = !currentToken
             ? user.refreshToken
-            : user.refreshToken.filter((rt) => rt !== req.cookies.refreshToken);
+            : user.refreshToken.filter((rt) => rt !== currentToken);
         
         // set new token to database
         user.refreshToken = [...newRefreshTokenArray, refreshToken];
