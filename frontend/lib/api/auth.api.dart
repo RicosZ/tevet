@@ -40,7 +40,7 @@ class AuthApi {
 
     try {
       final response =
-          await dio.post(uri, data: {'refreshToken': refreshToken});
+          await dio.post(uri, data: {'currentToken': refreshToken});
       final statusCode = response.statusCode;
       final body = response.data;
       if (statusCode == 200) {

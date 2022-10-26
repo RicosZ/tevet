@@ -164,13 +164,13 @@ class authController {
     }
 
     static async refreshToken(req, res, next) {
-        const { refreshToken } = req.body
+        const { currentToken } = req.body
         try {
            
-            if (!refreshToken)
+            if (!currentToken)
                 return next(new ErrorResponse("You are not authorized", 401));
             // const currentRefreshToken = req.cookies.refreshToken;
-            const currentRefreshToken = refreshToken;
+            const currentRefreshToken = currentToken;
 
             const foundUser = await User.findOne({ refreshToken: currentRefreshToken, }).exec();
             await jwt.verify(currentRefreshToken, process.env.REFRESH_TOKEN_SECRET, async (err, decoded) => {
@@ -488,6 +488,7 @@ const createUserProfile = async (
 };
 
 const renewAuthToken = async (user, req, res) => {
+    const {currentToken} = req.body
     try {
         // renew access&refresh token
         const accessToken = await user.createAccessToken();

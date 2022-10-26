@@ -91,4 +91,25 @@ class TopicApi {
       print(e);
     }
   }
+
+  Future getLastTopic() async {
+    dio.options.baseUrl = APIRoutes.BaseURL;
+    dio.interceptors
+      ..add(LogInterceptor())
+      ..add(AuthInterceptor());
+
+    final String subURL = '/forum/topics/';
+    try {
+      final response = await dio
+          .get(subURL, queryParameters: {'sort': 'createdAt', 'value': -1});
+      final statusCode = response.statusCode;
+      final body = response.data;
+
+      if (statusCode == 200) {
+        return Topics.fromJson(body);
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
 }

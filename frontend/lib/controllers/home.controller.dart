@@ -4,11 +4,9 @@ import 'package:getx_1/models/product.dart';
 
 class HomeController extends GetxController {
   var products = <Product>[].obs;
-  var currentindex = 0.obs;
 
   void onInit() {
-    // fetchProduct();
-    // currentindex.refresh();
+    fetchProduct();
     super.onInit();
   }
 
@@ -24,7 +22,4 @@ class HomeController extends GetxController {
     products.assignAll(productResult);
   }
 
-  changeIndex(int index) {
-    currentindex.value = index;
-  }
 }

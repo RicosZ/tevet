@@ -40,7 +40,7 @@ class CategoryApi {
       }
     } catch (e) {
       // print(e);
-      Get.toNamed('/login');
+      // Get.toNamed('/login');
     }
   }
 

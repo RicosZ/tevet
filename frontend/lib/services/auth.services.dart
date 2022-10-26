@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:get/get.dart';
 import 'package:getx_1/api/auth.api.dart';
 import 'package:getx_1/controllers/auth.controller.dart';
 
@@ -10,7 +11,7 @@ class AuthInterceptor extends Interceptor {
       RequestOptions options, RequestInterceptorHandler handler) async {
     final listOfPaths = <String>[
       '/auth/login',
-      '/forum/topic/',
+      '/forum/topics/',
       '/forum/categories/list/name',
       '/forum/tags/'
     ];
@@ -19,8 +20,8 @@ class AuthInterceptor extends Interceptor {
       // if the endpoint is matched then skip adding the token.
       return handler.next(options);
     }
-    var rf = await cacheService.readCache(key: 'refreshToken');
     try {
+      var rf = await cacheService.readCache(key: 'refreshToken');
       final response = await AuthApi().refreshToken(refreshToken: rf);
       final Map<String, dynamic> parsedValue = response;
       final accessToken = parsedValue['accessToken'];
@@ -32,18 +33,18 @@ class AuthInterceptor extends Interceptor {
         // final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
         // sharedPreferences.setString('jwt', accessToken);
       }
+      var token = await cacheService.readCache(key: 'accessToken');
+      options.headers.addAll({'Authorization': 'Bearer ${token}'});
+      return handler.next(options);
     } catch (e) {
-      // print(e);
+      Get.offAndToNamed("/login");
     }
-    var token = await cacheService.readCache(key: 'accessToken');
-    options.headers.addAll({'Authorization': 'Bearer ${token}'});
-    return handler.next(options);
   }
 
-  @override
-  void onResponse(Response response, ResponseInterceptorHandler handler) {
-    return handler.next(response);
-  }
+  // @override
+  // void onResponse(Response response, ResponseInterceptorHandler handler) {
+  //   return handler.next(response);
+  // }
 
   @override
   void onError(DioError err, ErrorInterceptorHandler handler) {

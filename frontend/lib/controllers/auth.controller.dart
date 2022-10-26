@@ -27,7 +27,8 @@ class AuthController extends GetxController {
 
   Login() async {
     try {
-      final response = await AuthApi().login(email: email!, password: password!);
+      final response =
+          await AuthApi().login(email: email!, password: password!);
       final Map<String, dynamic> parsedValue = response;
       final accessToken = parsedValue['accessToken'];
       final refreshToken = parsedValue['refreshToken'];
@@ -39,7 +40,7 @@ class AuthController extends GetxController {
         await cacheService.setBool(key: 'isCustomer', value: isCustomer);
         // final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
         // sharedPreferences.setString('jwt', accessToken);
-        Get.toNamed('/category/all');
+        Get.toNamed('/home');
         // Get.toNamed('/test');
       }
     } catch (e) {

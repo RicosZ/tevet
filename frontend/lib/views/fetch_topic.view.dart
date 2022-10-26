@@ -17,114 +17,112 @@ class FecthTTopicView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // print(_categorySlug);
-    return SafeArea(
-      child: Scaffold(
-        body: Obx(
-          () => fetchTopicController.isDataLoading.value
-              ? const Center(
-                  child: CircularProgressIndicator(),
-                )
-              : ListView.builder(
-                  itemCount: fetchTopicController.topic?.data.length,
-                  itemBuilder: (context, index) {
-                    return InkWell(
-                      child: Card(
-                        margin: EdgeInsets.all(12),
-                        child: Padding(
-                          padding: EdgeInsets.all(16.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            CircleAvatar(
-                                              backgroundImage: NetworkImage(
-                                                  'https://c.tenor.com/Ad-xu5LhRHoAAAAC/elysia-honkai-impact3.gif'),
+    return Scaffold(
+      body: Obx(
+        () => fetchTopicController.isDataLoading.value
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
+            : ListView.builder(
+                itemCount: fetchTopicController.topic?.data.length,
+                itemBuilder: (context, index) {
+                  return InkWell(
+                    child: Card(
+                      margin: EdgeInsets.all(12),
+                      child: Padding(
+                        padding: EdgeInsets.all(16.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          CircleAvatar(
+                                            backgroundImage: NetworkImage(
+                                                'https://c.tenor.com/Ad-xu5LhRHoAAAAC/elysia-honkai-impact3.gif'),
+                                          ),
+                                          SizedBox(
+                                            width: 30,
+                                          ),
+                                          Expanded(
+                                            child: Text(
+                                              fetchTopicController.topic!
+                                                  .data[index].topicSubject,
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 2,
+                                              style: TextStyle(fontSize: 23),
                                             ),
-                                            SizedBox(
-                                              width: 30,
-                                            ),
-                                            Expanded(
-                                              child: Text(
-                                                fetchTopicController.topic!
-                                                    .data[index].topicSubject,
-                                                overflow: TextOverflow.ellipsis,
-                                                maxLines: 2,
-                                                style: TextStyle(fontSize: 23),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          height: 20,
-                                        ),
-                                        Row(
-                                          children: [
-                                            Text(
-                                              getDateFormat(
-                                                  value: fetchTopicController
-                                                      .topic!.data[index].createdAt
-                                                      .toUtc()
-                                                      .toString()),
-                                            ),
-                                            SizedBox(
-                                              width: 30,
-                                            ),
-                                            Icon(Icons.message),
-                                            Text(fetchTopicController
-                                                .topic!.data[index].countComment
-                                                .toString()),
-                                            SizedBox(
-                                              width: 10,
-                                            ),
-                                            Icon(Icons.remove_red_eye_outlined),
-                                            Text(fetchTopicController
-                                                .topic!.data[index].countViews
-                                                .toString()),
-                                            SizedBox(
-                                              width: 10,
-                                            ),
-                                            Icon(Icons.thumb_up_alt_outlined),
-                                            Text(fetchTopicController
-                                                .topic!.data[index].countLike
-                                                .toString()),
-                                          ],
-                                        )
-                                      ],
-                                    ),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 20,
+                                      ),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            getDateFormat(
+                                                value: fetchTopicController
+                                                    .topic!.data[index].createdAt
+                                                    .toUtc()
+                                                    .toString()),
+                                          ),
+                                          SizedBox(
+                                            width: 30,
+                                          ),
+                                          Icon(Icons.message),
+                                          Text(fetchTopicController
+                                              .topic!.data[index].countComment
+                                              .toString()),
+                                          SizedBox(
+                                            width: 10,
+                                          ),
+                                          Icon(Icons.remove_red_eye_outlined),
+                                          Text(fetchTopicController
+                                              .topic!.data[index].countViews
+                                              .toString()),
+                                          SizedBox(
+                                            width: 10,
+                                          ),
+                                          Icon(Icons.thumb_up_alt_outlined),
+                                          Text(fetchTopicController
+                                              .topic!.data[index].countLike
+                                              .toString()),
+                                        ],
+                                      )
+                                    ],
                                   ),
-                                  // Text(categoryController.products[index].Price
-                                  //     .toString())
-                                ],
-                              )
-                            ],
-                          ),
+                                ),
+                                // Text(categoryController.products[index].Price
+                                //     .toString())
+                              ],
+                            )
+                          ],
                         ),
                       ),
-                      onTap: () {
-                        var _slugid =
-                            fetchTopicController.topic!.data[index].slugId;
-                        // var topicid = fetchTopicController.topic!.data[index].id;
-                        print(_slugid);
-                        Get.toNamed('/topic/${_slugid}');
-                      },
-                    );
-                  },
-                ),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Get.toNamed('/topic/add');
-          },
-          child: Icon(Icons.add),
-        ),
+                    ),
+                    onTap: () {
+                      var _slugid =
+                          fetchTopicController.topic!.data[index].slugId;
+                      // var topicid = fetchTopicController.topic!.data[index].id;
+                      print(_slugid);
+                      Get.toNamed('/topic/${_slugid}');
+                    },
+                  );
+                },
+              ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Get.toNamed('/topic/add');
+        },
+        child: Icon(Icons.add),
       ),
     );
   }
