@@ -14,6 +14,7 @@ class AuthInterceptor extends Interceptor {
       '/forum/topics/',
       '/forum/categories/list/name',
       '/forum/tags/'
+      '/auth/logout'
     ];
 
     if (listOfPaths.contains(options.path.toString())) {
@@ -25,9 +26,11 @@ class AuthInterceptor extends Interceptor {
       final response = await AuthApi().refreshToken(refreshToken: rf);
       final Map<String, dynamic> parsedValue = response;
       final accessToken = parsedValue['accessToken'];
+      final refreshToken = parsedValue['refreshToken'];
       // final isCustomer = parsedValue['isCustomer'];
       if (parsedValue['success'] == true) {
         cacheService.writeCache(key: 'accessToken', value: accessToken);
+        cacheService.writeCache(key: 'refreshToken', value: refreshToken);
         // cacheService.writeCache(key: 'isCustomer', value: isCustomer);
         // print('auth $accessToken');
         // final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();

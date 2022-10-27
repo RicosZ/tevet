@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:getx_1/util/palette.dart';
 import 'package:getx_1/views/add_topic.view.dart';
 import 'package:getx_1/views/category.view.dart';
 import 'package:getx_1/views/fetch_topic.view.dart';
-import 'package:getx_1/views/home.view.dart';
 import 'package:getx_1/views/login.view.dart';
 import 'package:getx_1/views/topic.view.dart';
 import 'package:getx_1/widget/bottom_navigation.dart';

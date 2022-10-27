@@ -39,7 +39,7 @@ dependencies:
   dio: ^4.0.6
   flutter_form_builder: ^7.6.0
   shared_preferences: ^2.0.15
-  intl: ^0.17.0
+  # intl: ^0.17.0
   # multiselect: ^0.0.7
   multi_select_flutter: ^4.1.2
   dropdown_button2: ^1.7.2
@@ -48,6 +48,7 @@ dependencies:
   socket_io_client: ^2.0.0
   smooth_page_indicator: ^1.0.0+2
   flutter_signin_button: ^2.0.0
+  step_progress_indicator: ^1.0.2
 
   # socket_io_client: ^1.0.2
   # dio_cookie_manager: ^2.0.0

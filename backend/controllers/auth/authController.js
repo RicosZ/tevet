@@ -37,6 +37,12 @@ class authController {
                     accessToken,
                     refreshToken,
                     isCustomer: user.isCustomer,
+                    user: {
+                        id: user._id,
+                        isCustomer: user.isCustomer,
+                        image: user.image,
+                        fullName: user.fullName
+                    }
                 });
         } catch (error) {
             next(error);
@@ -204,6 +210,7 @@ class authController {
             // const accessToken = await renewAuthToken(foundUser, req, res);
             const Token = await renewAuthToken(foundUser, req, res);
             const accessToken = Token.accessToken;
+            const refreshToken = Token.refreshToken;
             // const accessToken = Token.accessToken;
             // console.log(accessToken);
 
@@ -212,6 +219,7 @@ class authController {
                 .json({
                     success: true,
                     accessToken,
+                    refreshToken,
                     isCustomer: foundUser.isCustomer,
                 });
         } catch (error) {
@@ -220,11 +228,12 @@ class authController {
     }
 
     static async logout(req, res, next) {
+        const {currentToken} = req.body
         try {
-            if (!req.cookies?.refreshToken)
+            if (!currentToken)
                 return next(new ErrorResponse("You are not authorized", 401));
             
-            const refreshToken = req.cookies.refreshToken;
+            const refreshToken = currentToken;
 
             const foundUser = await User.findOne({ refreshToken });
             if (!foundUser) {

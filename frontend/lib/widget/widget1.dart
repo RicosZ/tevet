@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:getx_1/api/auth.api.dart';
 import 'package:getx_1/controllers/auth.controller.dart';
 import 'package:getx_1/util/palette.dart';
 
@@ -33,6 +34,9 @@ class MyWidget extends StatelessWidget {
                                   color: Palette.customColor1,
                                 )),
                             onTap: () async {
+                              final token = await cacheService.readCache(
+                                  key: 'refreshToken');
+                              await AuthApi().logout(refreshToken: token);
                               await cacheService.deleteCache(
                                   key: 'accessToken');
                               await cacheService.deleteCache(

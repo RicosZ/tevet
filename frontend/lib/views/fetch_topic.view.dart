@@ -118,11 +118,13 @@ class FecthTTopicView extends StatelessWidget {
                 },
               ),
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterFloat,
+      floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           Get.toNamed('/topic/add');
         },
-        child: Icon(Icons.add),
+        label: Text('data'),
+        icon: Icon(Icons.add),
       ),
     );
   }

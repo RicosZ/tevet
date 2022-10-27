@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:getx_1/controllers/bottom_navigation_bar.controller.dart';
 import 'package:getx_1/views/home.view.dart';
 import 'package:getx_1/views/login.view.dart';
+import 'package:getx_1/views/page1.dart';
 import 'package:getx_1/views/tesr.view.dart';
 
 import '../util/palette.dart';
@@ -18,7 +19,7 @@ class bottomNav extends StatelessWidget {
     HomePage(),
     HomePage(),
     test(),
-    test(),
+    page1(),
   ];
 
   @override

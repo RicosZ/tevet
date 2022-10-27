@@ -51,4 +51,21 @@ class AuthApi {
       print(e);
     }
   }
+  Future logout({required String refreshToken})async{
+    final String subURL = '/auth/logout';
+    final String uri = APIRoutes.BaseURL + subURL;
+
+    try {
+      final response =
+          await dio.post(uri, data: {'currentToken': refreshToken});
+      final statusCode = response.statusCode;
+      final body = response.data;
+      if (statusCode == 200) {
+        // print(body);
+        return body;
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
 }
